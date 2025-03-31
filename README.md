@@ -44,6 +44,29 @@ docker run -p 3000:3000 c2pa-verifier
 
 The application will be available at `http://localhost:3000`.
 
+## Kubernetes Deployment
+
+The application can be deployed to Kubernetes using Kustomize:
+
+```bash
+# Deploy the application
+kubectl apply -k ./kustomize
+```
+
+To verify the deployment:
+```bash
+# Check if pods are running
+kubectl get pods -n c2pa-verifier
+
+# Check the service
+kubectl get svc -n c2pa-verifier
+```
+
+To remove the deployment:
+```bash
+kubectl delete -k ./kustomize
+```
+
 ## Project Structure
 
 - `/src` - Source code

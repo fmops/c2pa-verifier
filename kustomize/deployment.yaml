@@ -5,7 +5,6 @@ metadata:
   labels:
     app: c2pa-verifier
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: c2pa-verifier

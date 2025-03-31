@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: c2pa-verifier
+  labels:
+    app: c2pa-verifier
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: c2pa-verifier
+  template:
+    metadata:
+      labels:
+        app: c2pa-verifier
+    spec:
+      containers:
+      - name: c2pa-verifier
+        image: ghcr.io/OWNER/c2pa-verifier:latest  # Replace OWNER with your GitHub username or organization
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: http
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 512Mi
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 15
+          periodSeconds: 20
+      imagePullSecrets:
+      - name: ghcr-secret 

@@ -1,0 +1,42 @@
+# Version control
+.git
+.gitignore
+
+# Dependencies
+node_modules
+.npm
+.yarn
+
+# Build outputs
+.next
+out
+dist
+
+# Development files
+.env*
+*.log
+.DS_Store
+.vscode
+.idea
+*.md
+!README.md
+
+# Test files
+coverage
+.nyc_output
+__tests__
+*.test.*
+*.spec.*
+
+# Kubernetes manifests
+kustomize/
+
+# Nix
+result
+.direnv
+.envrc
+
+# Misc
+*.bak
+*.swp
+*.swo 

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: c2pa-verifier
-        image: ghcr.io/OWNER/c2pa-verifier:latest  # Replace OWNER with your GitHub username or organization
+        image: ghcr.io/fmops/c2pa-verifier:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 3000

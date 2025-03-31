@@ -58,7 +58,7 @@ export default function Home() {
 
       return {
         actions,
-        subject: (manifest as any).signature?.signatureData?.certificate?.subject,
+        subject: manifest.signature?.signatureData?.certificate?.subject,
         validationStatus: 'VALID'
       };
     } catch (err) {

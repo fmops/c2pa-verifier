@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Asset, BMFF, JPEG, PNG } from '@trustnxt/c2pa-ts/asset';
 import { SuperBox } from '@trustnxt/c2pa-ts/jumbf';
 import { ManifestStore } from '@trustnxt/c2pa-ts/manifest';
+import Image from 'next/image';
 
 interface Action {
   softwareAgent?: {
@@ -166,10 +167,17 @@ export default function Home() {
           <div className="mt-8">
             <h2 className="text-xl font-semibold mb-4">Image Preview</h2>
             <div className="rounded-lg overflow-hidden bg-gray-900">
-              <img 
+              <Image 
                 src={imageUrl} 
                 alt="Uploaded image" 
                 className="max-w-full h-auto"
+                width={800}
+                height={600}
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                  objectFit: 'contain'
+                }}
               />
             </div>
           </div>

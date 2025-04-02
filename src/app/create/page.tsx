@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface Assertion {
   label: string;
-  data: any;
+  data: Record<string, unknown>;
 }
 
 interface CertificateSubject {
@@ -167,10 +168,16 @@ export default function CreateManifest() {
             <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700">
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 {previewUrl ? (
-                  <img 
+                  <Image 
                     src={previewUrl} 
                     alt="Preview" 
                     className="max-h-48 max-w-full object-contain"
+                    width={400}
+                    height={300}
+                    style={{
+                      maxHeight: '12rem',
+                      objectFit: 'contain'
+                    }}
                   />
                 ) : (
                   <>

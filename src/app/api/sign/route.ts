@@ -23,7 +23,7 @@ interface CertificateSubject {
  */
 async function createLocalSigner(certSubject: CertificateSubject): Promise<{ signer: LocalSigner; cleanup: () => void }> {
   // Generate key pair
-  const { privateKey: keyPair, publicKey } = generateKeyPairSync('ec', {
+  const { privateKey: keyPair } = generateKeyPairSync('ec', {
     namedCurve: 'prime256v1',
   });
 

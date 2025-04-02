@@ -130,7 +130,7 @@ export default function Home() {
   }, [imageUrl]);
 
   return (
-    <main className="min-h-screen p-8 bg-black text-white">
+    <main className="p-4 bg-black text-white">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">C2PA Image Verification Tool</h1>
         

@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM oven/bun:1 as builder
+FROM imbios/bun-node as builder
 WORKDIR /app
 
 # Copy package files
@@ -15,7 +15,7 @@ COPY . .
 RUN bun run build
 
 # Stage 2: Run
-FROM oven/bun:1-slim
+FROM imbios/bun-node
 WORKDIR /app
 
 # Copy only necessary files from builder
@@ -29,4 +29,4 @@ ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["bun", "server.js"] 
+CMD ["node", "server.js"] 

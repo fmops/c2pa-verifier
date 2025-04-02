@@ -7,9 +7,34 @@ interface Assertion {
   data: any;
 }
 
+interface CertificateSubject {
+  C: string;
+  ST: string;
+  L: string;
+  O: string;
+  OU: string;
+  CN: string;
+}
+
 export default function CreateManifest() {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [certSubject, setCertSubject] = useState<CertificateSubject>({
+    C: 'US',
+    ST: 'CA',
+    L: 'Somewhere',
+    O: 'C2PA Test Signing Cert',
+    OU: 'FOR TESTING_ONLY',
+    CN: 'C2PA Signer'
+  });
+  const [certSubjectText, setCertSubjectText] = useState(JSON.stringify({
+    C: 'US',
+    ST: 'CA',
+    L: 'Somewhere',
+    O: 'C2PA Test Signing Cert',
+    OU: 'FOR TESTING_ONLY',
+    CN: 'C2PA Signer'
+  }, null, 2));
   const [assertions, setAssertions] = useState<Assertion[]>([
     {
       label: "c2pa.actions",
@@ -43,6 +68,20 @@ export default function CreateManifest() {
   const [signedAssetUrl, setSignedAssetUrl] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const handleCertSubjectChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    setCertSubjectText(newText);
+    
+    try {
+      const parsedSubject = JSON.parse(newText);
+      setCertSubject(parsedSubject);
+      setError(null);
+    } catch (error) {
+      console.error('Invalid JSON:', error);
+      setError('Invalid certificate subject JSON format');
+    }
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -83,6 +122,7 @@ export default function CreateManifest() {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('assertions', JSON.stringify(assertions));
+      formData.append('certSubject', JSON.stringify(certSubject));
 
       const response = await fetch('/api/sign', {
         method: 'POST',
@@ -152,6 +192,20 @@ export default function CreateManifest() {
               />
             </label>
           </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+            Certificate Subject (JSON)
+          </label>
+          <textarea
+            value={certSubjectText}
+            onChange={handleCertSubjectChange}
+            className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg h-32 font-mono text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+          />
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            Required fields: C (Country), ST (State), L (Locality), O (Organization), OU (Organizational Unit), CN (Common Name)
+          </p>
         </div>
 
         <div>
